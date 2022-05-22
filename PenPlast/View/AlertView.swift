@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AlertView: View {
-    var msg: String
+    let msg: String
     @Binding var show: Bool
     
     var body: some View {

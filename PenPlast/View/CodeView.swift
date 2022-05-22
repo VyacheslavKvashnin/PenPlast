@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CodeView: View {
-    var code: String
+    let code: String
     var body: some View {
         VStack(spacing: 10) {
             Text(code)
