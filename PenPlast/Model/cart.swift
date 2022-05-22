@@ -8,13 +8,11 @@
 import SwiftUI
 
 struct cart: Identifiable {
-    
-    var id: String
-    var name: String
+    let id: String
+    let name: String
     var quantity: NSNumber
-    var image: String
-    var cost: NSNumber
-    var quick: Bool
-    var payDelivery: Bool
-
+    let image: String
+    let cost: NSNumber
+    let quick: Bool
+    let payDelivery: Bool
 }

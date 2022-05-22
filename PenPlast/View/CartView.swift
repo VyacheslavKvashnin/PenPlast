@@ -7,25 +7,21 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-import Firebase
+import FirebaseFirestore
 
 struct CartView: View {
-    
     @ObservedObject var cartData = getCartData()
-    
-    var device = UIDevice.current.userInterfaceIdiom
+    private let device = UIDevice.current.userInterfaceIdiom
     @Environment(\.horizontalSizeClass) var width
     
     init() {
         UITableView.appearance().separatorStyle = .singleLine
-       UITableViewCell.appearance().backgroundColor = .white
-       UITableView.appearance().backgroundColor = .white
+        UITableViewCell.appearance().backgroundColor = .white
+        UITableView.appearance().backgroundColor = .white
     }
     
     var body: some View {
-        
         VStack {
-            
             Text(self.cartData.datas.count != 0 ? "В вашей корзине:" : "Ваша корзина пуста")
                 .fontWeight(.bold)
                 .foregroundColor(.white)
@@ -34,27 +30,19 @@ struct CartView: View {
                 .background(Color("ColorButton").shadow(radius: 3))
             
             if self.cartData.datas.count != 0 {
-                
                 List {
-                    
                     ForEach(self.cartData.datas) { i in
-                        
                         HStack(spacing: 15) {
-                            
                             AnimatedImage(url: URL(string: i.image))
                                 .resizable()
                                 .frame(width: 55, height: 55)
                                 .cornerRadius(10)
-                            
                             VStack(alignment: .leading) {
-                                
                                 Text(i.name)
                                     .font(.body)
-                                
                                 HStack {
                                     Text("Количество: \(i.quantity)")
                                         .font(.caption)
-                                    
                                     Spacer()
                                     
                                     Text("Цена: \(i.cost)₽")
@@ -69,9 +57,7 @@ struct CartView: View {
                     }
                     .onDelete { (index) in
                         let db = Firestore.firestore()
-                        
                         db.collection("cart").document(self.cartData.datas[index.last!].id).delete { (err) in
-                            
                             if err != nil {
                                 print((err?.localizedDescription)!)
                                 return
@@ -107,7 +93,6 @@ struct CartView: View {
                 }
                 .frame(width: UIScreen.main.bounds.width, height: 40)
                 .background(Color("ColorButton").shadow(color: Color.black.opacity(0.3), radius: 5, x: 0, y: 5))
-                
             }
         }
         .frame(width: (device == .pad && width == .regular) ? 650 : 300, height: (device == .pad && width == .regular) ? 850 : 350)
@@ -118,19 +103,14 @@ struct CartView: View {
 
 func textFieldAlertView(id: String) -> UIAlertController {
     let alert = UIAlertController(title: "Обновить количество", message: "Введите количество", preferredStyle: .alert)
-    
     alert.addTextField {(txt) in
-        
         txt.placeholder = "Количество"
         txt.keyboardType = .numberPad
-        
     }
     
     let update = UIAlertAction(title: "Обновить", style: .default) { (_) in
-        
         let db = Firestore.firestore()
         let value = alert.textFields![0].text!
-        
         db.collection("cart").document(id).updateData(["quantity": Int(value)!]) { (err) in
             if err != nil {
                 print((err?.localizedDescription)!)
@@ -138,12 +118,8 @@ func textFieldAlertView(id: String) -> UIAlertController {
             }
         }
     }
-    
     let cancel = UIAlertAction(title: "Oтмена", style: .destructive, handler: nil)
-    
     alert.addAction(cancel)
-    
     alert.addAction(update)
-    
     return alert
 }

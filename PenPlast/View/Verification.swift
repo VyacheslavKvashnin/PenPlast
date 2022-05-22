@@ -8,27 +8,18 @@
 import SwiftUI
 
 struct Verification: View {
-    
     @ObservedObject var loginData : LoginViewModel
     @Environment(\.presentationMode) var presentation
-    
     @Environment(\.verticalSizeClass) var verticalSizeClass
-    
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-       
         ZStack {
-            
             if verticalSizeClass == .compact {
             VStack {
-                
                 VStack {
-                    
                     HStack {
-                        
                         Button(action: {presentation.wrappedValue.dismiss()}) {
-                            
                             Image(systemName: "arrow.left")
                                 .font(.title2)
                                 .foregroundColor(.black)
@@ -45,15 +36,11 @@ struct Verification: View {
                         if loginData.loading {ProgressView()}
                     }
                     .padding()
-                    
                     Spacer()
                     
                     HStack(spacing: 15) {
-                        
                         ForEach(0..<6, id: \.self) { index in
-                            
                             CodeView(code: getCodeAtIndex(index: index))
-                            
                         }
                     }
                     .padding()
@@ -61,9 +48,7 @@ struct Verification: View {
                     
                     Spacer()
                     
-                    
                     Button(action: loginData.verifyCode) {
-                        
                         Text("Создать аккаунт и продолжить")
                             .foregroundColor(.white)
                             .padding(.vertical)
@@ -86,15 +71,10 @@ struct Verification: View {
                 AlertView(msg: loginData.errorMsg, show: $loginData.error)
             }
             } else {
-                
                 VStack {
-                    
                     VStack {
-                        
                         HStack {
-                            
                             Button(action: {presentation.wrappedValue.dismiss()}) {
-                                
                                 Image(systemName: "arrow.left")
                                     .font(.title2)
                                     .foregroundColor(.black)
@@ -106,7 +86,6 @@ struct Verification: View {
                                 .font(.title2)
                                 .fontWeight(.bold)
                                 .foregroundColor(.black)
-                                
                             
                             Spacer()
                             
@@ -122,11 +101,8 @@ struct Verification: View {
                         Spacer()
                         
                         HStack(spacing: 15) {
-                            
                             ForEach(0..<6, id: \.self) { index in
-                                
                                 CodeView(code: getCodeAtIndex(index: index))
-                                
                             }
                         }
                         .padding()
@@ -135,19 +111,15 @@ struct Verification: View {
                         Spacer()
                         
                         HStack(spacing: 6) {
-                            
                             Text("Не получили код?")
                                 .foregroundColor(.gray)
-                            
                             Button(action: loginData.requestCode) {
-                                
                                 Text("Запросить еще раз")
                                     .fontWeight(.bold)
                                     .foregroundColor(.black)
                             }
                         }
                         Button(action: {}) {
-                            
                             Text("Получить по звонку")
                                 .fontWeight(.bold)
                                 .foregroundColor(.black)
@@ -155,7 +127,6 @@ struct Verification: View {
                         .padding(.top, 6)
                         
                         Button(action: loginData.verifyCode) {
-                            
                             Text("Создать аккаунт и продолжить")
                                 .foregroundColor(.white)
                                 .padding(.vertical)
@@ -174,7 +145,6 @@ struct Verification: View {
                 }
                 .padding(.bottom, 40)
                 
-                
                 if loginData.error {
                     AlertView(msg: loginData.errorMsg, show: $loginData.error)
                 }
@@ -187,36 +157,11 @@ struct Verification: View {
     }
     
     func getCodeAtIndex(index: Int) -> String {
-        
         if loginData.code.count > index {
-            
             let start = loginData.code.startIndex
-            
             let current = loginData.code.index(start, offsetBy: index)
-            
             return String(loginData.code[current])
         }
         return ""
-    }
-}
-
-struct CodeView: View {
-    
-    var code: String
-    
-    var body: some View {
-        
-        VStack(spacing: 10) {
-            
-            Text(code)
-                .font(.title2)
-                .foregroundColor(.black)
-                .fontWeight(.bold)
-                .frame(height: 45)
-            
-            Capsule()
-                .fill(Color.gray.opacity(0.5))
-                .frame(height: 4)
-        }
     }
 }

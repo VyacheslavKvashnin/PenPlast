@@ -9,27 +9,22 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct CellView: View {
+    let data: category
+    @State private var show = false
     
-    var data: category
-    @State var show = false
-   
     var body: some View {
-        
         VStack {
             AnimatedImage(url: URL(string: data.image)!)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(height: 270)
                 .padding(.horizontal)
-            
             HStack {
                 VStack(alignment: .leading) {
-                    
                     Text(data.name)
                         .font(.title)
                         .fontWeight(.heavy)
                         .lineLimit(2)
-                    
                     Text("\(data.cost)₽")
                         .font(.body)
                         .fontWeight(.heavy)
@@ -40,7 +35,6 @@ struct CellView: View {
                 
                 Button(action: {
                     self.show.toggle()
-                    
                 }) {
                     Image(systemName: "arrow.right")
                         .font(.body)

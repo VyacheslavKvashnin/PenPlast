@@ -8,27 +8,21 @@
 import SwiftUI
 
 struct AlertView: View {
-    
     var msg: String
     @Binding var show: Bool
     
     var body: some View {
-        
         VStack(alignment: .leading, spacing: 15, content: {
-            
             Text("Сообщение")
                 .fontWeight(.bold)
                 .foregroundColor(.gray)
-            
             Text(msg)
                 .foregroundColor(.gray)
-            
             Button(action: {
                 withAnimation {
                     show.toggle()
                 }
             }, label: {
-                
                 Text("Отмена")
                     .foregroundColor(.white)
                     .padding(.vertical)
@@ -36,13 +30,13 @@ struct AlertView: View {
                     .background(Color("ColorButton"))
                     .cornerRadius(15)
             })
-            .frame(alignment: .center)
+                .frame(alignment: .center)
         })
-        .padding()
-        .background(Color.white)
-        .cornerRadius(15)
-        .padding(.horizontal, 25)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.black.opacity(0.3).ignoresSafeArea())
+            .padding()
+            .background(Color.white)
+            .cornerRadius(15)
+            .padding(.horizontal, 25)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.black.opacity(0.3).ignoresSafeArea())
     }
 }

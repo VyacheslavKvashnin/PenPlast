@@ -8,11 +8,9 @@
 import SwiftUI
 
 struct category: Identifiable {
-    
-    var id: String
-    var cost: NSNumber
-    var details: String
-    var image: String
-    var name: String
-    
+    let id: String
+    let cost: NSNumber
+    let details: String
+    let image: String
+    let name: String
 }

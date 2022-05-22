@@ -13,7 +13,6 @@ struct SearchBar: View {
     
     var body: some View {
         VStack {
-            
             HStack {
                 TextField("Поиск", text: $text)
                     .padding(10)
@@ -44,10 +43,8 @@ struct SearchBar: View {
                         self.isEditing = true
                     }
                 if isEditing {
-                    
                     Button(action: {
                         self.isEditing = false
-                        
                         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                     }) {
                         Text("Отмена")
