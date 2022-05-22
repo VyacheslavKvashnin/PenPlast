@@ -2,6 +2,7 @@
 
 ## Приложение для заказа и покупки утеплителя
 
+### Stack
 > + SwiftUI
 > + Firebase
 > + SDWebImageSwiftUI
